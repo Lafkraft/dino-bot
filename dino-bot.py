@@ -1,13 +1,12 @@
 import numpy as np
 import cv2
-from mss.linux import MSS as mss
+from mss.windows import MSS as mss
 from PIL import Image
 import time
 import pyautogui as pg
 
 # Window Size
-#mon = {'top': 20, 'left': 60, 'width': 800, 'height': 400}
-mon = {'top': 255, 'left': 240, 'width': 70, 'height': 35}
+mon = {'top': 406, 'left': 341, 'width': 870, 'height': 835}
 
 def process_image(original_image):
     # convert to gray
@@ -36,12 +35,16 @@ def screen_record():
         mean = np.mean(processed_image)
         print('mean = ', mean)
 
-        if not mean == float(0):
-            pg.press('space')
+        # if not mean == float(0):
+        #     pg.press('space')
 
-        # gizmo_image = processed_image
-        # cv2.rectangle(gizmo_image,(200,180),(250,250),(255,255,255),20)
-        # cv2.imshow('Edges', gizmo_image)
+        gizmo_image = img
+        cv2.rectangle(
+            gizmo_image,
+            (mon['left'], mon['top']), (mon['left']+mon['width'], mon['top']+mon['height']),
+            (255, 255, 255),
+             20)
+        cv2.imshow('Edges', gizmo_image)
 
         #cv2.imshow('ROI', processed_image)
         if cv2.waitKey(25) & 0xFF == ord('q'):
